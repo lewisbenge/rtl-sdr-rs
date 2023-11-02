@@ -28,6 +28,14 @@ pub struct RtlSdr {
     sdr: Sdr,
 }
 impl RtlSdr {
+
+    pub fn open_with_udev(devpath: String) -> Result<RtlSdr> {
+        let dev = Device::new_with_path(devpath)?;
+        let mut sdr = Sdr::new(dev);
+        sdr.init()?;
+        Ok(RtlSdr { sdr: sdr })
+    }
+
     pub fn open(index: usize) -> Result<RtlSdr> {
         let dev = Device::new(index)?;
         let mut sdr = Sdr::new(dev);
