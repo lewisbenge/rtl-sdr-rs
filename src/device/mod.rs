@@ -24,6 +24,13 @@ pub struct Device {
 }
 
 impl Device {
+
+    pub fn new_with_path(devpath: String) -> Result<Device>{
+        Ok(Device{
+            handle: DeviceHandle::open_with_path(devpath)?,
+        })
+    }
+
     pub fn new(index: usize) -> Result<Device> {
         Ok(Device {
             handle: DeviceHandle::open(index)?,
